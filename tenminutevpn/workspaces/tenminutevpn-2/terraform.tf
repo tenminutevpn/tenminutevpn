@@ -1,0 +1,3 @@
+terraform {
+    # TODO: add backend
+}
