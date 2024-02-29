@@ -52,5 +52,6 @@ crash.log
 # For built boxes
 *.box
 
-**/packer/artifacts/
-**/packer/cidata.iso
+**/packer/dist/
+**/packer/boot/cidata.iso
+**/packer/boot/ssh

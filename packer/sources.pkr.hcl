@@ -10,16 +10,18 @@ source "qemu" "bookworm" {
   iso_checksum     = var.iso_checksum
   iso_url          = var.iso_url
   net_device       = "virtio-net"
-  output_directory = "artifacts/qemu/${var.name}${var.version}"
+  output_directory = "dist/${var.name}${var.version}.${var.format}"
   qemuargs = [
     ["-m", "${var.ram}M"],
     ["-smp", "${var.cpu}"],
-    ["-cdrom", "cidata.iso"]
+    ["-cdrom", "boot/cidata.iso"],
+    ["-bios", "boot/uefi/edk2-x86_64.fd"],
   ]
 
-  communicator           = "ssh"
   shutdown_command       = "echo '${var.ssh_password}' | sudo -S shutdown -P now"
-  ssh_password           = var.ssh_password
+
+  communicator           = "ssh"
   ssh_username           = var.ssh_username
+  ssh_private_key_file   = var.ssh_private_key
   ssh_timeout            = "10m"
 }

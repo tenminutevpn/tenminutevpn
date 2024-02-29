@@ -33,9 +33,9 @@ variable "ram" {
   default = "2048"
 }
 
-variable "ssh_password" {
+variable "ssh_private_key" {
   type    = string
-  default = "root"
+  default = "boot/ssh/id_rsa"
 }
 
 variable "ssh_username" {
