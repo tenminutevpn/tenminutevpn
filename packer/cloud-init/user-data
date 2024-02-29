@@ -1,0 +1,5 @@
+#cloud-config
+password: root
+ssh_pwauth: true
+chpasswd:
+  expire: false

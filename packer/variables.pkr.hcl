@@ -1,0 +1,54 @@
+variable "cpu" {
+  type    = string
+  default = "2"
+}
+
+variable "disk_size" {
+  type    = string
+  default = "4096"
+}
+
+variable "headless" {
+  type    = string
+  default = "true"
+}
+
+variable "iso_checksum" {
+  type    = string
+  default = "sha512:0424cd4862670d2e161e5a055571fe0086de861fc0539f6faf5adf47d57d199b45a66b4fced576b2b8e1e0d3f57c80a2f65fc4e60352db71f911a6078f288148"
+}
+
+variable "iso_url" {
+  type    = string
+  default = "file:///Users/andrey/Downloads/debian-12-genericcloud.raw"
+}
+
+variable "name" {
+  type    = string
+  default = "bookworm"
+}
+
+variable "ram" {
+  type    = string
+  default = "2048"
+}
+
+variable "ssh_password" {
+  type    = string
+  default = "root"
+}
+
+variable "ssh_username" {
+  type    = string
+  default = "root"
+}
+
+variable "version" {
+  type    = string
+  default = ""
+}
+
+variable "format" {
+  type    = string
+  default = "raw"
+}
