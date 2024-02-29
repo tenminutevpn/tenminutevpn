@@ -5,12 +5,12 @@ MAKEFILE_DIR := $(realpath $(dir $(firstword $(MAKEFILE_LIST))))
 help:  ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-boot/cidata.iso:  ## Create a cloud-init iso
-	mkisofs -output $(MAKEFILE_DIR)/boot/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/boot/cloud-init
-
 boot/ssh: ## Create a ssh key
 	mkdir -p boot/ssh
 	ssh-keygen -t rsa -b 4096 -f boot/ssh/id_rsa -N ""
+
+boot/cidata.iso: boot/ssh  ## Create a cloud-init iso
+	mkisofs -output $(MAKEFILE_DIR)/boot/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/boot/cloud-init
 
 .PHONY: clean
 clean:  ## Clean the cloud-init iso

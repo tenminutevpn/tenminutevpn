@@ -53,5 +53,5 @@ crash.log
 *.box
 
 **/packer/dist/
-**/packer/boot/cidata.iso
 **/packer/boot/ssh
+**/packer/boot/cidata.iso
