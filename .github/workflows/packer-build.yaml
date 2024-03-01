@@ -38,4 +38,4 @@ jobs:
         run: |
           cd packer
           direnv allow
-          make build-debian12
+          make clean install build-debian12
