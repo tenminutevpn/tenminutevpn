@@ -1,5 +1,5 @@
 source "qemu" "image" {
-  vm_name          = var.name
+  vm_name          = local.name
   iso_url          = var.image_url
   iso_checksum     = var.image_checksum
   format           = var.image_format

@@ -8,19 +8,19 @@ help:  ## Show this help
 out:
 	mkdir -p $(MAKEFILE_DIR)/out/
 
-out/ssh/id_rsa: out  ## Create a ssh key
+out/ssh/id_rsa: out
 	mkdir -p $(MAKEFILE_DIR)/out/ssh/
 	ssh-keygen -t rsa -b 4096 -f $(MAKEFILE_DIR)/out/ssh/id_rsa -N ""
 
-our/cloud-init: out out/ssh/id_rsa  ## Create a cloud-init directory
+our/cloud-init: out out/ssh/id_rsa
 	mkdir -p $(MAKEFILE_DIR)/out/cloud-init/
 	cp $(MAKEFILE_DIR)/src/files/cloud-init/* $(MAKEFILE_DIR)/out/cloud-init/
 	SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/out/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/src/files/cloud-init/user-data > $(MAKEFILE_DIR)/out/cloud-init/user-data
 
-out/cidata.iso: our/cloud-init  ## Create a cloud-init iso
+out/cidata.iso: our/cloud-init
 	mkisofs -output $(MAKEFILE_DIR)/out/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/out/cloud-init/
 
-out/default.pkrvars.hcl: out/ssh/id_rsa  ## Create a packer variables file
+out/default.pkrvars.hcl: out/ssh/id_rsa
 	rm -f $(MAKEFILE_DIR)/out/default.pkrvars.hcl
 	echo "image_output = \"${MAKEFILE_DIR}/out/image/\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
 	echo "vm_cloudinit = \"${MAKEFILE_DIR}/out/cidata.iso\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
@@ -31,8 +31,8 @@ clean:  ## Clean the build
 	rm -rf $(MAKEFILE_DIR)/out/
 
 .PHONY: build
-build: out/cidata.iso out/default.pkrvars.hcl  ## Build the image
+build-%: clean out/cidata.iso out/default.pkrvars.hcl  ## Build the image
 	PACKER_LOG=1 packer build \
-		-var-file=$(MAKEFILE_DIR)/vars/debian-12.pkrvars.hcl \
+		-var-file=$(MAKEFILE_DIR)/vars/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl \
 		$(MAKEFILE_DIR)/src/
