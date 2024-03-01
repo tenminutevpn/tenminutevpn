@@ -32,7 +32,7 @@ clean:  ## Clean the build
 
 .PHONY: build
 build-%: clean out/cidata.iso out/default.pkrvars.hcl  ## Build the image
-	PACKER_LOG=1 packer build \
+	packer build \
 		-var-file=$(MAKEFILE_DIR)/vars/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl \
 		$(MAKEFILE_DIR)/src/
