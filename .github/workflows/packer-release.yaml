@@ -34,6 +34,13 @@ jobs:
         with:
           version: "1.9.4"
 
+      - name: Cache Source Image
+        uses: actions/cache@v3
+        with:
+          path: |
+            packer/out/cache/*
+          key: ${{ runner.os }}-image-${{ hashFiles('**/packer/variables/*.pkrvars.hcl') }}
+
       - name: Build
         run: |
           cd packer
