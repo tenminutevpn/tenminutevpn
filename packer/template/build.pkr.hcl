@@ -10,7 +10,7 @@ build {
   }
 
   post-processor "compress" {
-    compression_level = 9
+    compression_level = 6
     output            = "${var.image_output}/${local.name}.gz"
   }
 
