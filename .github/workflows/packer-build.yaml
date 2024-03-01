@@ -28,7 +28,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -yq --no-install-recommends direnv
           sudo apt-get install -yq --no-install-recommends mkisofs qemu-system-x86 qemu-utils
-          sudo chmod o+rwx /dev/kvm
 
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
