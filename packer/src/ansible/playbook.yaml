@@ -1,0 +1,10 @@
+---
+- hosts: default
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Install the latest version of nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: latest
+        update_cache: yes

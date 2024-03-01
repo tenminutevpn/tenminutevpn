@@ -1,9 +1,9 @@
 build {
   sources = ["source.qemu.image"]
 
-  provisioner "shell" {
-    execute_command = "{{ .Vars }} sudo -E bash '{{ .Path }}'"
-    inline          = ["sudo apt update", "sudo apt install python3"]
+  provisioner "ansible" {
+    playbook_file = "${path.root}/ansible/playbook.yaml"
+    user = "root"
   }
 
   post-processor "compress" {
