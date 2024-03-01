@@ -52,6 +52,4 @@ crash.log
 # For built boxes
 *.box
 
-**/packer/dist/
-**/packer/boot/ssh
-**/packer/boot/cidata.iso
+**/packer/out/
