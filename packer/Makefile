@@ -20,16 +20,16 @@ our/cloud-init: out out/ssh/id_rsa  ## Create a cloud-init directory
 out/cidata.iso: our/cloud-init  ## Create a cloud-init iso
 	mkisofs -output $(MAKEFILE_DIR)/out/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/out/cloud-init/
 
-build.pkrvars.hcl:  ## Create a packer variables file
-	rm -f $(MAKEFILE_DIR)/build.pkrvars.hcl
-	echo "ssh_private_key = \"$(MAKEFILE_DIR)/out/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/build.pkrvars.hcl
-	echo "image_output = \"${MAKEFILE_DIR}/out/image/\"" >> $(MAKEFILE_DIR)/build.pkrvars.hcl
-	echo "vm_cloudinit = \"${MAKEFILE_DIR}/out/cidata.iso\"" >> $(MAKEFILE_DIR)/build.pkrvars.hcl
+out/default.pkrvars.hcl: out/ssh/id_rsa  ## Create a packer variables file
+	rm -f $(MAKEFILE_DIR)/out/default.pkrvars.hcl
+	echo "image_output = \"${MAKEFILE_DIR}/out/image/\"" >> $(MAKEFILE_DIR)/default.pkrvars.hcl
+	echo "vm_cloudinit = \"${MAKEFILE_DIR}/out/cidata.iso\"" >> $(MAKEFILE_DIR)/default.pkrvars.hcl
+	echo "ssh_private_key = \"$(MAKEFILE_DIR)/out/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/default.pkrvars.hcl
 
 .PHONY: clean
 clean:  ## Clean the build
 	rm -rf $(MAKEFILE_DIR)/out/
 
 .PHONY: build
-build: out/cidata.iso build.pkrvars.hcl  ## Build the cloud-init iso
-	PACKER_LOG=1 packer build -var-file=debian-12.pkrvars.hcl -var-file=build.pkrvars.hcl $(MAKEFILE_DIR)/src/
+build: out/cidata.iso out/default.pkrvars.hcl  ## Build the image
+	PACKER_LOG=1 packer build -var-file=$(MAKEFILE_DIR)/vars/debian-12.pkrvars.hcl -var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl $(MAKEFILE_DIR)/src/
