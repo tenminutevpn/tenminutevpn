@@ -1,4 +1,4 @@
 name = "debian-12"
 
-image_url      = "file:///Users/andrey/Downloads/debian-12-genericcloud.raw"
-image_checksum = "sha512:0424cd4862670d2e161e5a055571fe0086de861fc0539f6faf5adf47d57d199b45a66b4fced576b2b8e1e0d3f57c80a2f65fc4e60352db71f911a6078f288148"
+image_url      = "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.raw"
+image_checksum = "sha512:4d493674bd9edd885e489e0ae3f00c080e21884c25263cff27458edaa3d9b6e534397417bb13659df772a3b10fb1bfa9321b7f78c2feaa3d862682cf4c6a03bc"
