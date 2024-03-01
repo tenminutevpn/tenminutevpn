@@ -27,5 +27,6 @@ source "qemu" "image" {
   ssh_private_key_file = var.ssh_private_key
   ssh_timeout          = "10m"
 
+  iso_target_path = "${var.image_cache}/${local.name}"
   output_directory = var.image_output
 }

@@ -23,6 +23,7 @@ out/cidata.iso: our/cloud-init
 out/default.pkrvars.hcl: out/ssh/id_rsa
 	rm -f $(MAKEFILE_DIR)/out/default.pkrvars.hcl
 	echo "image_output = \"${MAKEFILE_DIR}/out/image/\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
+	echo "image_cache = \"${MAKEFILE_DIR}/out/cache/\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
 	echo "vm_cloudinit = \"${MAKEFILE_DIR}/out/cidata.iso\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
 	echo "ssh_private_key = \"$(MAKEFILE_DIR)/out/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
 

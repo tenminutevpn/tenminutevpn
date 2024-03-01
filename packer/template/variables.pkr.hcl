@@ -21,6 +21,10 @@ variable "image_output" {
   type = string
 }
 
+variable "image_cache" {
+  type    = string
+}
+
 ### QEMU #####################################################################
 
 variable "qemu_accelerator" {
