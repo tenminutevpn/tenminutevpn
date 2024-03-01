@@ -47,13 +47,6 @@ jobs:
           direnv allow
           make clean install build-debian12
 
-      - name: Cache Source Image
-        uses: actions/cache@v3
-        with:
-          path: |
-            packer/out/cache/*
-          key: ${{ runner.os }}-image-${{ hashFiles('**/packer/variables/*.pkrvars.hcl') }}
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
