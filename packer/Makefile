@@ -5,31 +5,32 @@ MAKEFILE_DIR := $(realpath $(dir $(firstword $(MAKEFILE_LIST))))
 help:  ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-out:
-	mkdir -p $(MAKEFILE_DIR)/out/
+.cache:
+	mkdir -p $(MAKEFILE_DIR)/.cache/packer/
+	mkdir -p $(MAKEFILE_DIR)/.cache/qemu/
 
-out/ssh/id_rsa: out
-	mkdir -p $(MAKEFILE_DIR)/out/ssh/
-	ssh-keygen -t rsa -b 4096 -f $(MAKEFILE_DIR)/out/ssh/id_rsa -N ""
+.cache/packer/ssh/id_rsa: .cache
+	mkdir -p $(MAKEFILE_DIR)/.cache/packer/ssh/
+	ssh-keygen -t rsa -b 4096 -f $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa -N ""
 
-our/cloud-init: out out/ssh/id_rsa
-	mkdir -p $(MAKEFILE_DIR)/out/cloud-init/
-	cp $(MAKEFILE_DIR)/template/files/cloud-init/* $(MAKEFILE_DIR)/out/cloud-init/
-	SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/out/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/template/files/cloud-init/user-data > $(MAKEFILE_DIR)/out/cloud-init/user-data
+.cache/packer/cloud-init: .cache .cache/packer/ssh/id_rsa
+	mkdir -p $(MAKEFILE_DIR)/.cache/packer/cloud-init/
+	cp $(MAKEFILE_DIR)/template/files/cloud-init/* $(MAKEFILE_DIR)/.cache/packer/cloud-init/
+	SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/template/files/cloud-init/user-data > $(MAKEFILE_DIR)/.cache/packer/cloud-init/user-data
 
-out/cidata.iso: our/cloud-init
-	mkisofs -output $(MAKEFILE_DIR)/out/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/out/cloud-init/
+.cache/packer/cidata.iso: .cache/packer/cloud-init
+	mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/
 
-out/default.pkrvars.hcl: out/ssh/id_rsa
-	rm -f $(MAKEFILE_DIR)/out/default.pkrvars.hcl
-	echo "image_output = \"${MAKEFILE_DIR}/out/image/\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
-	echo "image_cache = \"${MAKEFILE_DIR}/out/cache/\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
-	echo "vm_cloudinit = \"${MAKEFILE_DIR}/out/cidata.iso\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
-	echo "ssh_private_key = \"$(MAKEFILE_DIR)/out/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/out/default.pkrvars.hcl
+.cache/packer/default.pkrvars.hcl: .cache/packer/ssh/id_rsa
+	rm -f $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
+	echo "image_output = \"${MAKEFILE_DIR}/.cache/packer/image/\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
+	echo "image_cache = \"${MAKEFILE_DIR}/.cache/qemu/\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
+	echo "vm_cloudinit = \"${MAKEFILE_DIR}/.cache/packer/cidata.iso\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
+	echo "ssh_private_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
 
 .PHONY: clean
 clean:  ## Clean the build
-	rm -rf $(MAKEFILE_DIR)/out/
+	rm -rf $(MAKEFILE_DIR)/.cache/packer/
 
 .PHONY: format
 format:  ## Format the code
@@ -41,11 +42,11 @@ install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/template/
 
 .PHONY: build
-build: out/cidata.iso out/default.pkrvars.hcl
+build: .cache/packer/cidata.iso .cache/packer/default.pkrvars.hcl
 
 .PHONY: build-%
 build-%: clean build  ## Build the image
 	packer build \
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
-		-var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl \
+		-var-file=$(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl \
 		$(MAKEFILE_DIR)/template/

@@ -38,7 +38,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            packer/out/cache/*
+            packer/.venv
+            packer/.cache/qemu
           key: ${{ runner.os }}-image-${{ hashFiles('**/packer/variables/*.pkrvars.hcl') }}
 
       - name: Build
