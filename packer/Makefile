@@ -30,6 +30,15 @@ out/default.pkrvars.hcl: out/ssh/id_rsa
 clean:  ## Clean the build
 	rm -rf $(MAKEFILE_DIR)/out/
 
+.PHONY: format
+format:  ## Format the code
+	packer fmt -recursive $(MAKEFILE_DIR)/template/
+	packer fmt -recursive $(MAKEFILE_DIR)/variables/
+
+.PHONY: install
+install:  ## Install the dependencies
+    direnv allow
+
 .PHONY: build
 build: out/cidata.iso out/default.pkrvars.hcl
 
@@ -39,8 +48,3 @@ build-%: clean build  ## Build the image
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl \
 		$(MAKEFILE_DIR)/template/
-
-.PHONY: format
-format:  ## Format the code
-	packer fmt -recursive $(MAKEFILE_DIR)/template/
-	packer fmt -recursive $(MAKEFILE_DIR)/variables/

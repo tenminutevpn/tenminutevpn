@@ -33,3 +33,9 @@ jobs:
         uses: hashicorp/setup-packer@main
         with:
           version: "1.9.4"
+
+      - name: Build
+        run: |
+          cd packer
+          direnv allow
+          make build-debian12
