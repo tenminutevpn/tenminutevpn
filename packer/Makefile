@@ -36,3 +36,8 @@ build-%: clean out/cidata.iso out/default.pkrvars.hcl  ## Build the image
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl \
 		$(MAKEFILE_DIR)/template/
+
+.PHONY: format
+format:  ## Format the code
+	packer fmt -recursive $(MAKEFILE_DIR)/template/
+	packer fmt -recursive $(MAKEFILE_DIR)/variables/

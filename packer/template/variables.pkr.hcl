@@ -1,15 +1,15 @@
 variable "name" {
-  type    = string
+  type = string
 }
 
 ### Image ####################################################################
 
 variable "image_url" {
-  type    = string
+  type = string
 }
 
 variable "image_checksum" {
-  type    = string
+  type = string
 }
 
 variable "image_format" {
@@ -18,7 +18,7 @@ variable "image_format" {
 }
 
 variable "image_output" {
-  type    = string
+  type = string
 }
 
 ### QEMU #####################################################################
@@ -67,5 +67,5 @@ variable "ssh_username" {
 }
 
 variable "ssh_private_key" {
-  type    = string
+  type = string
 }
