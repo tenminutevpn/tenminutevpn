@@ -2,7 +2,7 @@ build {
   sources = ["source.qemu.image"]
 
   provisioner "ansible" {
-    playbook_file = "${path.root}/ansible/playbook.yaml"
+    playbook_file = "${path.root}/provisioner/playbook.yaml"
     user = "root"
   }
 

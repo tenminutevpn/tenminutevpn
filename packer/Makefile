@@ -14,8 +14,8 @@ out/ssh/id_rsa: out
 
 our/cloud-init: out out/ssh/id_rsa
 	mkdir -p $(MAKEFILE_DIR)/out/cloud-init/
-	cp $(MAKEFILE_DIR)/src/files/cloud-init/* $(MAKEFILE_DIR)/out/cloud-init/
-	SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/out/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/src/files/cloud-init/user-data > $(MAKEFILE_DIR)/out/cloud-init/user-data
+	cp $(MAKEFILE_DIR)/template/files/cloud-init/* $(MAKEFILE_DIR)/out/cloud-init/
+	SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/out/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/template/files/cloud-init/user-data > $(MAKEFILE_DIR)/out/cloud-init/user-data
 
 out/cidata.iso: our/cloud-init
 	mkisofs -output $(MAKEFILE_DIR)/out/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/out/cloud-init/
@@ -33,6 +33,6 @@ clean:  ## Clean the build
 .PHONY: build
 build-%: clean out/cidata.iso out/default.pkrvars.hcl  ## Build the image
 	packer build \
-		-var-file=$(MAKEFILE_DIR)/vars/$*.pkrvars.hcl \
+		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/out/default.pkrvars.hcl \
-		$(MAKEFILE_DIR)/src/
+		$(MAKEFILE_DIR)/template/
