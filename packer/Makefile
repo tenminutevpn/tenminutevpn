@@ -37,7 +37,7 @@ format:  ## Format the code
 
 .PHONY: install
 install:  ## Install the dependencies
-    direnv allow
+	packer init $(MAKEFILE_DIR)/template/
 
 .PHONY: build
 build: out/cidata.iso out/default.pkrvars.hcl
