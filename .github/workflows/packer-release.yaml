@@ -62,6 +62,7 @@ jobs:
           direnv exec . make clean install build-debian12
 
       - name: Upload artifact
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v4
         with:
           name: image
