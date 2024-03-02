@@ -38,6 +38,8 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/amd64
 
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
