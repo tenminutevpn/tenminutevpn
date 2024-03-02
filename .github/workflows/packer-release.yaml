@@ -23,6 +23,10 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Setup Pipenv
+        run: |
+          python3.11 -m pip install --upgrade pipenv wheel
+
       - name: Configure Fast APT Mirror
         uses: vegardit/fast-apt-mirror.sh@v1
 
