@@ -1,5 +1,5 @@
 data "digitalocean_region" "this" {
-  slug = "fra1"
+  slug = var.region
 }
 
 data "github_release" "this" {
