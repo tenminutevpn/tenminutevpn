@@ -13,16 +13,25 @@ resource "tls_private_key" "this" {
   algorithm = "ED25519"
 }
 
+resource "digitalocean_vpc" "this" {
+  name     = "tenminutevpn"
+  region   = data.digitalocean_region.this.slug
+  ip_range = "10.10.10.0/24"
+}
+
 resource "digitalocean_ssh_key" "this" {
   name       = "tenminutevpn"
   public_key = tls_private_key.this.public_key_openssh
 }
 
 resource "digitalocean_droplet" "this" {
-  name   = "tenminutevpn"
-  image  = digitalocean_custom_image.this.id
-  region = data.digitalocean_region.this.slug
-  size   = "s-1vcpu-512mb-10gb"
+  name  = "tenminutevpn"
+  image = digitalocean_custom_image.this.id
+  size  = "s-1vcpu-512mb-10gb"
+
+  region   = data.digitalocean_region.this.slug
+  vpc_uuid = digitalocean_vpc.this.id
+  ipv6     = true
 
   droplet_agent = false
   backups       = false
