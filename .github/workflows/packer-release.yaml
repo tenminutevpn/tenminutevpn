@@ -25,9 +25,11 @@ jobs:
 
       - name: Install System Dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -yq --no-install-recommends direnv
-          sudo apt-get install -yq --no-install-recommends mkisofs qemu-system-x86 qemu-utils
+          sudo apt-get update && sudo apt-get install -yq --no-install-recommends \
+            direnv \
+            mkisofs \
+            qemu-system-x86 \
+            qemu-utils
 
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
