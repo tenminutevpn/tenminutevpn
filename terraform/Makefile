@@ -6,7 +6,7 @@ help: ## Show this help
 
 .PHONY: format
 format:  ## Format Terraform files
-	find $(MAKEFILE_DIR)/{modules,workspaces}/ -name '*.tf' | xargs terraform fmt
+	terraform fmt -recursive $(MAKEFILE_DIR)/{modules,workspaces}
 
 .PHONY: install
 install:  ## Install Terraform and Terragrunt
