@@ -55,7 +55,7 @@ jobs:
         run: |
           cd packer
           direnv allow
-          eval "$(direnv hook bash)"
+          eval "$(direnv hook $(basename $SHELL))"
           make clean install build-debian12
 
       - name: Upload artifact
