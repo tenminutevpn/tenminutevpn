@@ -29,3 +29,18 @@ resource "digitalocean_droplet" "this" {
     digitalocean_ssh_key.this.fingerprint,
   ]
 }
+
+resource "ssh_resource" "this" {
+  when = "create"
+
+  host        = digitalocean_droplet.this.ipv4_address
+  user        = "root"
+  private_key = tls_private_key.this.private_key_pem
+
+  timeout     = "15m"
+  retry_delay = "5s"
+
+  commands = [
+    "echo 'Hello, World!'",
+  ]
+}
