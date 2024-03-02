@@ -39,6 +39,7 @@ format:  ## Format the code
 
 .PHONY: install
 install:  ## Install the dependencies
+	which python3
 	packer init $(MAKEFILE_DIR)/template/
 
 .PHONY: build
