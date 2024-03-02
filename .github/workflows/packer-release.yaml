@@ -57,8 +57,8 @@ jobs:
         with:
           name: image
           path: |
-            packer/out/image/*
-            !packer/out/image/*.raw
+            packer/.cache/packer/image/*
+            !packer/.cache/packer/image/*.raw
 
   release:
     runs-on: ubuntu-latest
