@@ -3,6 +3,10 @@ resource "digitalocean_custom_image" "this" {
   url          = one([for item in data.github_release.this.assets : item if item.name == "debian-12.raw.gz"]).browser_download_url
   distribution = "Debian"
   regions      = [data.digitalocean_region.this.slug]
+
+  timeouts {
+    create = "15m"
+  }
 }
 
 resource "tls_private_key" "this" {
@@ -28,6 +32,11 @@ resource "digitalocean_droplet" "this" {
   ssh_keys = [
     digitalocean_ssh_key.this.fingerprint,
   ]
+
+  timeouts {
+    create = "15m"
+    delete = "15m"
+  }
 }
 
 resource "ssh_resource" "this" {
