@@ -34,13 +34,17 @@ jobs:
         with:
           version: "1.9.4"
 
-      - name: Cache Source Image
+      - name: Cache Python Virtual Environment
         uses: actions/cache@v3
         with:
-          path: |
-            packer/.venv
-            packer/.cache/qemu
-          key: ${{ runner.os }}-image-${{ hashFiles('**/packer/variables/*.pkrvars.hcl') }}
+          path: packer/.venv
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/packer/Pipfile.lock') }}
+
+      - name: Cache QEMU
+        uses: actions/cache@v3
+        with:
+          path: packer/.cache/qemu
+          key: ${{ runner.os }}-qemu-${{ hashFiles('**/packer/variables/*.pkrvars.hcl') }}
 
       - name: Build
         run: |
