@@ -48,6 +48,7 @@ jobs:
 
       - name: Build
         run: |
+          eval "$(direnv hook bash)"
           cd packer
           direnv allow
           ls -la
