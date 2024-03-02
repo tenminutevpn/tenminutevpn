@@ -1,3 +1,8 @@
+### Terragrunt ################################################################
+# Local .terragrunt-cache directories
+**/.terragrunt-cache/*
+.env
+
 ### Terraform ################################################################
 # Local .terraform directories
 **/.terraform/*

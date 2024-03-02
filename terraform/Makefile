@@ -6,7 +6,7 @@ help: ## Show this help
 
 .PHONY: format
 format:  ## Format Terraform files
-	terraform fmt -recursive $(MAKEFILE_DIR)/{modules,workspaces}
+	@terraform fmt -recursive $(MAKEFILE_DIR)/{modules,workspaces}
 
 .PHONY: install
 install:  ## Install Terraform and Terragrunt
@@ -16,3 +16,7 @@ install:  ## Install Terraform and Terragrunt
 .PHONY: prerequisities
 prerequisities:  ## Install Prerequisities
 	brew install direnv sops tfenv tgenv
+
+.PHONY: clean
+clean:  ## Clean up
+	rm -rf $(MAKEFILE_DIR)/.cache/
