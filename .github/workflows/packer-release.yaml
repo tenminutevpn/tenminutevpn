@@ -24,10 +24,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install System Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -yq --no-install-recommends direnv
-          sudo apt-get install -yq --no-install-recommends mkisofs qemu-system-x86 qemu-utils
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: direnv mkisofs qemu-system-x86 qemu-utils
+          version: "1.0"
 
       - name: Setup Packer
         uses: hashicorp/setup-packer@main
