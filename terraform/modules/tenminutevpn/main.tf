@@ -1,7 +1,7 @@
 resource "digitalocean_vpc" "this" {
-  name     = "tenminutevpn"
+  name     = "tenminutevpn-${data.digitalocean_region.this.slug}"
   region   = data.digitalocean_region.this.slug
-  ip_range = "10.10.10.0/24"
+  ip_range = "10.100.0.0/24"
 }
 
 resource "digitalocean_custom_image" "this" {
@@ -31,7 +31,7 @@ resource "digitalocean_droplet" "this" {
 
   region   = data.digitalocean_region.this.slug
   vpc_uuid = digitalocean_vpc.this.id
-  ipv6     = true
+  ipv6     = false
 
   droplet_agent = false
   backups       = false
