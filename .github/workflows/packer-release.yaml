@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Configure Fast APT Mirror
+        uses: vegardit/fast-apt-mirror.sh@v1
+
       - name: Install System Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -yq --no-install-recommends \
