@@ -50,6 +50,7 @@ jobs:
         run: |
           cd packer
           direnv allow
+          ls -la
           make clean install build-debian12
 
       - name: Upload artifact
