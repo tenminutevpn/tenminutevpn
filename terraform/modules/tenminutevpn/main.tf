@@ -19,6 +19,12 @@ resource "digitalocean_droplet" "this" {
   image  = digitalocean_custom_image.this.id
   region = data.digitalocean_region.this.slug
   size   = "s-1vcpu-512mb-10gb"
+
+  droplet_agent = false
+  backups       = false
+  monitoring    = false
+  resize_disk   = false
+
   ssh_keys = [
     digitalocean_ssh_key.this.fingerprint,
   ]
