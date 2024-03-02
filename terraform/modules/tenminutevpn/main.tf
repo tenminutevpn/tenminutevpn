@@ -1,6 +1,6 @@
 resource "digitalocean_custom_image" "this" {
-  name    = "debian-bookworm"
-  url     = "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.raw"
+  name         = "tenminutevpn"
+  url          = one([for item in data.github_release.this.assets : item if item.name == "debian-12.raw.gz"]).browser_download_url
   distribution = "Debian"
-  regions = [data.digitalocean_region.this.slug]
+  regions      = [data.digitalocean_region.this.slug]
 }
