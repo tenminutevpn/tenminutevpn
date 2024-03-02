@@ -1,3 +1,9 @@
+resource "digitalocean_vpc" "this" {
+  name     = "tenminutevpn"
+  region   = data.digitalocean_region.this.slug
+  ip_range = "10.10.10.0/24"
+}
+
 resource "digitalocean_custom_image" "this" {
   name         = "tenminutevpn"
   url          = one([for item in data.github_release.this.assets : item if item.name == "debian-12.raw.gz"]).browser_download_url
@@ -11,12 +17,6 @@ resource "digitalocean_custom_image" "this" {
 
 resource "tls_private_key" "this" {
   algorithm = "ED25519"
-}
-
-resource "digitalocean_vpc" "this" {
-  name     = "tenminutevpn"
-  region   = data.digitalocean_region.this.slug
-  ip_range = "10.10.10.0/24"
 }
 
 resource "digitalocean_ssh_key" "this" {
