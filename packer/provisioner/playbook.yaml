@@ -1,0 +1,6 @@
+---
+- name: Provision
+  hosts: default
+  gather_facts: true
+  become: true
+  tasks: []

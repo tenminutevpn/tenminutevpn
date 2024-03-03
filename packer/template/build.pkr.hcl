@@ -2,11 +2,17 @@ build {
   sources = ["source.qemu.image"]
 
   provisioner "ansible" {
-    playbook_file = "${path.root}/provisioner/playbook.yaml"
-    galaxy_file   = "${path.root}/provisioner/requirements.yaml"
-    roles_path    = "${path.root}/provisioner/roles/"
+    playbook_file = "${path.root}/../provisioner/playbook.yaml"
+    galaxy_file   = "${path.root}/../provisioner/requirements.yaml"
+    roles_path    = "${path.root}/../provisioner/roles/"
 
     user = "root"
+  }
+
+  provisioner "shell" {
+    inline = [
+      "cloud-init clean --logs --seed",
+    ]
   }
 
   post-processor "compress" {

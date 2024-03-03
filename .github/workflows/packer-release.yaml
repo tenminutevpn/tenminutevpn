@@ -1,6 +1,7 @@
 name: Packer - Release
 
 on:
+  pull_request:
   push:
     branches:
       - main
@@ -12,7 +13,9 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    env:
+      PACKER_VERSION: 1.9.4
 
     steps:
       - name: Checkout
@@ -38,10 +41,18 @@ jobs:
             qemu-system-x86 \
             qemu-utils
 
+      - name: Cache Packer
+        id: packer-cache
+        uses: actions/cache@v3
+        with:
+          path: /opt/hostedtoolcache/**/packer
+          key: ${{ runner.os }}-packer-${{ env.PACKER_VERSION }}
+
       - name: Setup Packer
+        if: steps.packer-cache.outputs.cache-hit != 'true'
         uses: hashicorp/setup-packer@main
         with:
-          version: "1.9.4"
+          version: ${{ env.PACKER_VERSION }}
 
       - name: Cache Python Virtual Environment
         uses: actions/cache@v3
@@ -61,7 +72,7 @@ jobs:
           direnv allow
           direnv exec . make build-tenminutevpn
 
-      - name: Upload artifact
+      - name: "Upload artifact - Image"
         if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v4
         with:
@@ -70,9 +81,57 @@ jobs:
             packer/.cache/packer/image/*
             !packer/.cache/packer/image/*.raw
 
-  release:
-    runs-on: ubuntu-latest
+      - name: "Upload artifact - Image Raw"
+        uses: actions/upload-artifact@v4
+        with:
+          name: image_raw
+          path: |
+            packer/.cache/packer/image/*.raw
+            packer/.cache/packer/image/SHA512SUMS
+
+  test:
+    runs-on: ubuntu-22.04
     needs: build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Setup Pipenv
+        run: |
+          python3.11 -m pip install --upgrade pipenv wheel
+
+      - name: Configure Fast APT Mirror
+        uses: vegardit/fast-apt-mirror.sh@v1
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -yq --no-install-recommends \
+            direnv \
+            mkisofs \
+            qemu-system-x86 \
+            qemu-utils
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: image_raw
+          path: packer/.cache/packer/image
+
+      - name: Verify
+        run: |
+          cd packer
+          direnv allow
+          direnv exec . make test
+
+  release:
+    runs-on: ubuntu-22.04
+    needs: [build, test]
     if: startsWith(github.ref, 'refs/tags/v')
 
     permissions:
