@@ -11,7 +11,7 @@ help:  ## Show this help
 
 .cache/packer/ssh/id_rsa: .cache
 	@mkdir -p $(MAKEFILE_DIR)/.cache/packer/ssh/
-	@ssh-keygen -t rsa -b 4096 -f $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa -N ""
+	@ssh-keygen -t rsa -b 4096 -f $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa -N "" -q
 
 .cache/packer/cloud-init: .cache .cache/packer/ssh/id_rsa
 	@mkdir -p $(MAKEFILE_DIR)/.cache/packer/cloud-init/
@@ -19,7 +19,7 @@ help:  ## Show this help
 	@SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/template/files/cloud-init/user-data > $(MAKEFILE_DIR)/.cache/packer/cloud-init/user-data
 
 .cache/packer/cidata.iso: .cache/packer/cloud-init
-	@mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/
+	@mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/ > /dev/null
 
 .cache/packer/cache.pkrvars.hcl: .cache/packer/ssh/id_rsa
 	@rm -f $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
