@@ -68,7 +68,6 @@ jobs:
 
       - name: Build
         run: |
-          cd packer
           direnv allow
           direnv exec . make build
 
