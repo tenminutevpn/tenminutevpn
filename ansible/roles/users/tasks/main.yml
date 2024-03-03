@@ -2,6 +2,5 @@
 - name: Create user
   ansible.builtin.user:
     name: tenminutevpn
-    group: tenminutevpn
     shell: /bin/bash
     state: present
