@@ -5,9 +5,12 @@ name = "pypi"
 
 [packages]
 ansible = ">=9.0.0,<10.0.0"
-ansible-lint = ">=6.0.0,<7.0.0"
 
 [dev-packages]
+ansible-lint = ">=6.0.0,<7.0.0"
+molecule = ">=5.0.0,<6.0.0"
+molecule-qemu = "==0.5.10"
+pytest-testinfra = ">=8.0.0,<9.0.0"
 
 [requires]
 python_version = "3.11"
