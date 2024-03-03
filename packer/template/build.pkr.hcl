@@ -9,6 +9,12 @@ build {
     user = "root"
   }
 
+  provisioner "shell" {
+    inline = [
+      "cloud-init clean --logs --seed",
+    ]
+  }
+
   post-processor "compress" {
     compression_level = 6
     output            = "${var.image_output}/${local.name}.gz"

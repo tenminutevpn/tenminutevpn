@@ -1,11 +1,6 @@
 ---
-- name: Install Nginx
+- name: Provision
   hosts: default
   gather_facts: true
   become: true
-  tasks:
-    - name: Install the latest version of nginx
-      ansible.builtin.apt:
-        name: nginx
-        state: present
-        update_cache: true
+  tasks: []
