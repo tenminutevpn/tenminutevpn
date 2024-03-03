@@ -4,4 +4,4 @@ ssh_pwauth: false
 users:
   - name: root
     ssh_authorized_keys:
-      - $SSH_PUBLIC_KEY
+      - ${ssh_public_key}

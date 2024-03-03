@@ -8,4 +8,3 @@
 - python3.11
 - direnv
 - make
-- envsubst
