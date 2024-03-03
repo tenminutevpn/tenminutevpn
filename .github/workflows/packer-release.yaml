@@ -14,6 +14,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      PACKER_VERSION: 1.9.4
 
     steps:
       - name: Checkout
@@ -44,13 +46,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /opt/hostedtoolcache/**/packer
-          key: ${{ runner.os }}-packer-1.9.4 }}
+          key: ${{ runner.os }}-packer-${{ env.PACKER_VERSION }}
 
       - name: Setup Packer
         if: steps.packer-cache.outputs.cache-hit != 'true'
         uses: hashicorp/setup-packer@main
         with:
-          version: "1.9.4"
+          version: ${{ env.PACKER_VERSION }}
 
       - name: Cache Python Virtual Environment
         uses: actions/cache@v3
