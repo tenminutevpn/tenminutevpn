@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Andrey Gubarev <account@andreygubarev.com> (andreygubarev.com)
+  description: 
+  company: andreygubarev
+
+  license: MIT
+
+  min_ansible_version: '9.0.0'
+
+  platforms: []
+  # platforms:
+  # - name: Ubuntu
+  #   versions:
+  #   - focal
+
+  galaxy_tags: []
+
+dependencies: []
