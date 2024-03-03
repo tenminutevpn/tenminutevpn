@@ -19,7 +19,7 @@ help:  ## Show this help
 	@SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/template/files/cloud-init/user-data > $(MAKEFILE_DIR)/.cache/packer/cloud-init/user-data
 
 .cache/packer/cidata.iso: .cache/packer/cloud-init
-	@mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/ > /dev/null
+	@mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/ > /dev/null 2>&1
 
 .cache/packer/cache.pkrvars.hcl: .cache/packer/ssh/id_rsa
 	@rm -f $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
