@@ -37,6 +37,11 @@ format:  ## Format the code
 	@packer fmt -recursive $(MAKEFILE_DIR)/template/
 	@packer fmt -recursive $(MAKEFILE_DIR)/variables/
 
+.PHONY: lint
+lint:  ## Lint the code
+	@packer validate -syntax-only $(MAKEFILE_DIR)/template/
+	@ansible-lint $(MAKEFILE_DIR)/provisioner/
+
 .PHONY: install
 install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/template/
@@ -45,7 +50,7 @@ install:  ## Install the dependencies
 build: .cache/packer/cidata.iso .cache/packer/cache.pkrvars.hcl
 
 .PHONY: build-%
-build-%: clean install build  ## Build the image
+build-%: clean lint install build  ## Build the image
 	packer validate \
         -var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
         -var-file=$(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl \
