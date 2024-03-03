@@ -3,6 +3,5 @@
   ansible.builtin.user:
     name: tenminutevpn
     group: tenminutevpn
-    state: present
-    append: true
     shell: /bin/bash
+    state: present
