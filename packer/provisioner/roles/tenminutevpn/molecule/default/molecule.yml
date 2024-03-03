@@ -5,8 +5,8 @@ driver:
   name: molecule-qemu
 platforms:
   - name: tenminutevpn
-    image_url: "file://${MOLECULE_IMAGE_URL}"
-    image_checksum: "sha512:${MOLECULE_IMAGE_CHECKSUM}"
+    image_url: "${MOLECULE_IMAGE_URL}"
+    image_checksum: "${MOLECULE_IMAGE_CHECKSUM}"
     image_format: raw
     network_ssh_port: 2222
 provisioner:
