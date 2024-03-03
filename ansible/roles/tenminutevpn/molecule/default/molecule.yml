@@ -8,7 +8,6 @@ platforms:
     image_url: "${MOLECULE_IMAGE_URL}"
     image_checksum: "${MOLECULE_IMAGE_CHECKSUM}"
     image_format: raw
-    network_ssh_port: 2222
 provisioner:
   name: ansible
 verifier:
