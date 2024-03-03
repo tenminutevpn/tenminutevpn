@@ -46,6 +46,10 @@ build: .cache/packer/cidata.iso .cache/packer/cache.pkrvars.hcl
 
 .PHONY: build-%
 build-%: clean install build  ## Build the image
+	packer validate \
+        -var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
+        -var-file=$(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl \
+        $(MAKEFILE_DIR)/template/
 	packer build \
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl \
