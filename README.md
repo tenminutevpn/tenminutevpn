@@ -1,3 +1,1 @@
-# 10minutevpn
-
-10MinuteVPN.
+# TenMinuteVPN
