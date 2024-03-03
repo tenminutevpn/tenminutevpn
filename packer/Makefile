@@ -21,12 +21,12 @@ help:  ## Show this help
 .cache/packer/cidata.iso: .cache/packer/cloud-init
 	mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cidata.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/
 
-.cache/packer/default.pkrvars.hcl: .cache/packer/ssh/id_rsa
-	rm -f $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
-	echo "image_output = \"${MAKEFILE_DIR}/.cache/packer/image/\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
-	echo "image_cache = \"${MAKEFILE_DIR}/.cache/qemu/\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
-	echo "vm_cloudinit = \"${MAKEFILE_DIR}/.cache/packer/cidata.iso\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
-	echo "ssh_private_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl
+.cache/packer/cache.pkrvars.hcl: .cache/packer/ssh/id_rsa
+	rm -f $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
+	echo "image_output = \"${MAKEFILE_DIR}/.cache/packer/image/\"" >> $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
+	echo "image_cache = \"${MAKEFILE_DIR}/.cache/qemu/\"" >> $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
+	echo "vm_cloudinit = \"${MAKEFILE_DIR}/.cache/packer/cidata.iso\"" >> $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
+	echo "ssh_private_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl
 
 .PHONY: clean
 clean:  ## Clean the build
@@ -42,11 +42,11 @@ install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/template/
 
 .PHONY: build
-build: .cache/packer/cidata.iso .cache/packer/default.pkrvars.hcl
+build: .cache/packer/cidata.iso .cache/packer/cache.pkrvars.hcl
 
 .PHONY: build-%
 build-%: clean install build  ## Build the image
 	packer build \
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
-		-var-file=$(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl \
+		-var-file=$(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl \
 		$(MAKEFILE_DIR)/template/
