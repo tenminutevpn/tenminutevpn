@@ -58,6 +58,7 @@ jobs:
 
       - name: Build
         run: |
+          which packer
           cd packer
           direnv allow
           direnv exec . make build-tenminutevpn
