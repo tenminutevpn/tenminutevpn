@@ -11,7 +11,6 @@ source "qemu" "image" {
     ["-m", "${var.vm_memory}M"],
     ["-smp", "${var.vm_cpus}"],
     ["-cdrom", "${var.vm_cloudinit}"],
-    ["-bios", "${path.root}files/edk2-x86_64.fd"],
   ]
 
   disk_compression = true
