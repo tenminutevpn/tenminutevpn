@@ -70,7 +70,7 @@ jobs:
         run: |
           cd packer
           direnv allow
-          direnv exec . make build-tenminutevpn
+          direnv exec . make build
 
       - name: "Upload artifact - Image"
         if: startsWith(github.ref, 'refs/tags/v')
