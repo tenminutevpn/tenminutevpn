@@ -7,16 +7,17 @@ source "qemu" "image" {
   accelerator = var.qemu_accelerator
   headless    = var.qemu_headless
   net_device  = var.qemu_network
-  memory = var.vm_memory
-  cpus   = var.vm_cpus
+  memory      = var.vm_memory
+  cpus        = var.vm_cpus
 
   cd_content = {
     "meta-data" = templatefile("${path.root}/cloud-init/meta-data", {
-        instance_id = var.image_name,
-        local_hostname = var.image_name,
+      instance_id    = var.image_name,
+      local_hostname = var.image_name,
     })
     "user-data" = templatefile("${path.root}/cloud-init/user-data", {
-        ssh_public_key = file(var.ssh_public_key),
+      ssh_username   = var.ssh_username,
+      ssh_public_key = file(var.ssh_public_key),
     })
   }
   cd_label = "cidata"
