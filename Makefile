@@ -13,20 +13,12 @@ help:  ## Show this help
 	@mkdir -p $(MAKEFILE_DIR)/.cache/packer/ssh/
 	@ssh-keygen -t rsa -b 4096 -f $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa -N "" -q
 
-.cache/packer/cloud-init: .cache .cache/packer/ssh/id_rsa
-	@mkdir -p $(MAKEFILE_DIR)/.cache/packer/cloud-init/
-	@cp $(MAKEFILE_DIR)/packer/files/cloud-init/* $(MAKEFILE_DIR)/.cache/packer/cloud-init/
-	@SSH_PUBLIC_KEY="$(shell cat $(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa.pub)" envsubst < $(MAKEFILE_DIR)/packer/files/cloud-init/user-data > $(MAKEFILE_DIR)/.cache/packer/cloud-init/user-data
-
-.cache/packer/cloud-init.iso: .cache/packer/cloud-init
-	@mkisofs -output $(MAKEFILE_DIR)/.cache/packer/cloud-init.iso -volid cidata -joliet -rock $(MAKEFILE_DIR)/.cache/packer/cloud-init/ > /dev/null 2>&1
-
 .cache/packer/variables.pkrvars.hcl: .cache/packer/ssh/id_rsa
 	@rm -f $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "image_output = \"${MAKEFILE_DIR}/.cache/packer/image/\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "image_cache = \"${MAKEFILE_DIR}/.cache/qemu/\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
-	@echo "vm_cloudinit = \"${MAKEFILE_DIR}/.cache/packer/cloud-init.iso\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "ssh_private_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
+	@echo "ssh_public_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa.pub\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 
 .PHONY: clean
 clean:  ## Clean the build
@@ -46,7 +38,7 @@ install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/packer/
 
 .PHONY: build
-build: clean lint install .cache/packer/cloud-init.iso .cache/packer/variables.pkrvars.hcl  ## Build the image
+build: clean lint install .cache/packer/variables.pkrvars.hcl  ## Build the image
 	packer validate \
         -var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
         $(MAKEFILE_DIR)/packer/

@@ -57,10 +57,6 @@ variable "vm_disk" {
   default = "4096"
 }
 
-variable "vm_cloudinit" {
-  type = string
-}
-
 ### SSH ######################################################################
 
 variable "ssh_username" {
@@ -69,5 +65,9 @@ variable "ssh_username" {
 }
 
 variable "ssh_private_key" {
+  type = string
+}
+
+variable "ssh_public_key" {
   type = string
 }
