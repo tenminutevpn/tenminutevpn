@@ -1,11 +1,14 @@
 galaxy_info:
+  role_name: tenminutevpn
+  namespace: andreygubarev
+
   author: Andrey Gubarev <account@andreygubarev.com> (andreygubarev.com)
-  description: 
+  description: Ten Minute VPN
   company: andreygubarev
 
   license: MIT
 
-  min_ansible_version: '9.0.0'
+  min_ansible_version: "9.0.0"
 
   platforms: []
   # platforms:

@@ -5,8 +5,10 @@ driver:
   name: molecule-qemu
 platforms:
   - name: tenminutevpn
-    image_url: https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-arm64.qcow2
-    image_checksum: sha512:https://cloud.debian.org/images/cloud/bullseye/latest/SHA512SUMS
+    image_url: "file://${MOLECULE_IMAGE_URL}"
+    image_checksum: "sha512:${MOLECULE_IMAGE_CHECKSUM}"
+    image_format: raw
+    network_ssh_port: 2222
 provisioner:
   name: ansible
 verifier:
