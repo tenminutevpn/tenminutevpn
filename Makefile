@@ -57,4 +57,4 @@ build: clean lint install .cache/packer/cidata.iso .cache/packer/variables.pkrva
 
 .PHONY: test
 test:  ## Test the image
-	cd $(MAKEFILE_DIR)/provisioner/roles/tenminutevpn/ && molecule test
+	cd $(MAKEFILE_DIR)/ansible/roles/tenminutevpn/ && molecule test
