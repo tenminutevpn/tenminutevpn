@@ -50,6 +50,7 @@ build-%: clean install build  ## Build the image
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl \
 		$(MAKEFILE_DIR)/template/
+	sed -i 's/\t/  /g' $(MAKEFILE_DIR)/.cache/packer/image/SHA512SUMS
 
 .PHONY: test
 test:  ## Test the image
