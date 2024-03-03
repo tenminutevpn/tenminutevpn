@@ -6,7 +6,7 @@ build {
     galaxy_file   = "${path.root}/../ansible/requirements.yaml"
     roles_path    = "${path.root}/../ansible/roles/"
 
-    user = "root"
+    user = var.ssh_username
   }
 
   provisioner "shell" {
