@@ -1,8 +1,7 @@
-variable "name" {
+### Image ####################################################################
+variable "image_name" {
   type = string
 }
-
-### Image ####################################################################
 
 variable "image_url" {
   type = string
@@ -22,7 +21,7 @@ variable "image_output" {
 }
 
 variable "image_cache" {
-  type    = string
+  type = string
 }
 
 ### QEMU #####################################################################
