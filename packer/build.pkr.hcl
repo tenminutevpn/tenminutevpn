@@ -11,6 +11,7 @@ build {
 
   provisioner "shell" {
     inline = [
+      "rm -f ~/.ssh/authorized_keys",
       "cloud-init clean --logs --seed",
     ]
   }
