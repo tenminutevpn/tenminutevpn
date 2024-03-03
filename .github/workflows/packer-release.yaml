@@ -102,6 +102,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: image
+          path: packer/.cache/packer/image
 
       - name: Verify
         run: |
