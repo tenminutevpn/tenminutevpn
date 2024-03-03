@@ -6,11 +6,12 @@ build {
     galaxy_file   = "${path.root}/../ansible/requirements.yaml"
     roles_path    = "${path.root}/../ansible/roles/"
 
-    user = "root"
+    user = var.ssh_username
   }
 
   provisioner "shell" {
     inline = [
+      "rm -f ~/.ssh/authorized_keys",
       "cloud-init clean --logs --seed",
     ]
   }
