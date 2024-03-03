@@ -39,8 +39,8 @@ format:  ## Format the code
 
 .PHONY: lint
 lint:  ## Lint the code
-	@packer validate -syntax-only $(MAKEFILE_DIR)/template/
 	@ansible-lint --offline $(MAKEFILE_DIR)/provisioner/
+	@packer validate -syntax-only $(MAKEFILE_DIR)/template/
 
 .PHONY: install
 install:  ## Install the dependencies
