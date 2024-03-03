@@ -62,7 +62,7 @@ jobs:
           direnv allow
           direnv exec . make build-tenminutevpn
 
-      - name: Upload artifact
+      - name: "Upload artifact - Image"
         if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v4
         with:
@@ -70,6 +70,13 @@ jobs:
           path: |
             packer/.cache/packer/image/*
             !packer/.cache/packer/image/*.raw
+
+      - name: "Upload artifact - Image Raw"
+        uses: actions/upload-artifact@v4
+        with:
+          name: image_raw
+          path: |
+            packer/.cache/packer/image/*.raw
 
   test:
     runs-on: ubuntu-latest
@@ -102,7 +109,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: image
+          name: image_raw
           path: packer/.cache/packer/image
 
       - name: Verify
