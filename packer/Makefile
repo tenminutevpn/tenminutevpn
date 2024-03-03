@@ -45,7 +45,7 @@ install:  ## Install the dependencies
 build: .cache/packer/cidata.iso .cache/packer/default.pkrvars.hcl
 
 .PHONY: build-%
-build-%: clean build  ## Build the image
+build-%: clean install build  ## Build the image
 	packer build \
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/default.pkrvars.hcl \

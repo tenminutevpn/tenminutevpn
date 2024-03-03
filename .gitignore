@@ -53,6 +53,7 @@ crash.log
 # subject to change depending on the environment.
 #
 *.pkrvars.hcl
+!**/packer/variables/*.pkrvars.hcl
 
 # For built boxes
 *.box
