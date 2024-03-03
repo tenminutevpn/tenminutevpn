@@ -3,8 +3,8 @@ data "digitalocean_region" "this" {
 }
 
 data "github_release" "this" {
-  owner      = "10minutevpn"
-  repository = "10minutevpn"
+  owner      = "tenminutevpn"
+  repository = "tenminutevpn"
 
   retrieve_by = "tag"
   release_tag = "v0.1.0rc0"
