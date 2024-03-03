@@ -50,3 +50,7 @@ build-%: clean install build  ## Build the image
 		-var-file=$(MAKEFILE_DIR)/variables/$*.pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/cache.pkrvars.hcl \
 		$(MAKEFILE_DIR)/template/
+
+.PHONY: test
+test:  ## Test the image
+	cd $(MAKEFILE_DIR)/provisioner/roles/tenminutevpn/ && molecule test
