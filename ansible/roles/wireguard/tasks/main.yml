@@ -2,6 +2,7 @@
 - name: Update system
   ansible.builtin.apt:
     update_cache: true
+    cache_valid_time: 3600
 
 - name: Install WireGuard
   ansible.builtin.apt:
@@ -48,4 +49,3 @@
   ansible.builtin.systemd:
     name: wireguard
     enabled: true
-    state: restarted
