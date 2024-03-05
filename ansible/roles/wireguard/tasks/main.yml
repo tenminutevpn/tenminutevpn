@@ -51,3 +51,4 @@
   ansible.builtin.systemd:
     name: wireguard
     enabled: true
+    state: stopped
