@@ -7,6 +7,6 @@
     https_proxy: "{{ lookup('ansible.builtin.env', 'https_proxy') | default(omit) }}"
 
   tasks:
-    - name: "Include molecule"
+    - name: "Include wireguard"
       ansible.builtin.include_role:
-        name: "molecule"
+        name: "wireguard"
