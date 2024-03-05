@@ -35,6 +35,7 @@ cat <<EOF > {{ wireguard_client_config }}
 [Interface]
 PrivateKey = $(cat {{ wireguard_client_privatekey }})
 Address = 10.0.0.2/32
+DNS = 1.1.1.1,1.0.0.1
 
 [Peer]
 PublicKey = $(cat {{ wireguard_server_publickey }})
