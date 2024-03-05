@@ -19,4 +19,5 @@ def test_wireguard_cloudinit(host):
 
 
 def test_wireguard_configuration(host):
-    assert not host.file("/etc/wireguard/wg0.conf").exists
+    with host.sudo():
+        assert not host.file("/etc/wireguard/wg0.conf").exists
