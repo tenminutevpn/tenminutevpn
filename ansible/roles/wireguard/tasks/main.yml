@@ -41,14 +41,10 @@
     dest: /usr/local/bin/wireguard-init.sh
     mode: "0744"
 
-- name: Create systemd service for WireGuard configuration on boot
+- name: Create WireGuard cloud-init configuration
   ansible.builtin.template:
-    src: wireguard.service
-    dest: /etc/systemd/system/wireguard.service
+    src: 99_wireguard.cfg
+    dest: /etc/cloud/cloud.cfg.d/99_wireguard.cfg
     mode: "0644"
-
-- name: Enable systemd service
-  ansible.builtin.systemd:
-    name: wireguard
-    enabled: true
-    state: stopped
+    owner: root
+    group: root

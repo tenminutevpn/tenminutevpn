@@ -14,10 +14,8 @@ def test_wireguard_scripts(host):
         assert host.file(f"/usr/local/bin/{script}").mode == 0o744
 
 
-def test_wireguard_service(host):
-    """Check if WireGuard service is enabled and running."""
-    assert host.service("wireguard").is_enabled
-    assert not host.service("wireguard").is_running
+def test_wireguard_cloudinit(host):
+    assert host.file("/etc/cloud/cloud.cfg.d/99_wireguard.cfg").exists
 
 
 def test_wireguard_configuration(host):
