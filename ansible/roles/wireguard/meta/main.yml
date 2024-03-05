@@ -1,11 +1,14 @@
 galaxy_info:
+  namespace: tenminutevpn
+  role_name: wireguard
+
   author: Andrey Gubarev <andrey@andreygubarev.com> (andreygubarev.com)
   description: Wireguard role
   company: tenminutevpn
 
   license: MIT
 
-  min_ansible_version: '9.0.0'
+  min_ansible_version: "9.0.0"
 
   platforms: []
   # platforms:
