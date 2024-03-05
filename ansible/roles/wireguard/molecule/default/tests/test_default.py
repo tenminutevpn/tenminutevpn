@@ -12,3 +12,13 @@ def test_wireguard_scripts(host):
         assert host.file(f"/usr/local/bin/{script}").exists
         assert host.file(f"/usr/local/bin/{script}").is_file
         assert host.file(f"/usr/local/bin/{script}").mode == 0o744
+
+
+def test_wireguard_service(host):
+    """Check if WireGuard service is enabled and running."""
+    assert host.service("wg-quick@wg0").is_enabled
+    assert not host.service("wg-quick@wg0").is_running
+
+
+def test_wireguard_configuration(host):
+    assert not host.file("/etc/wireguard/wg0.conf").exists
