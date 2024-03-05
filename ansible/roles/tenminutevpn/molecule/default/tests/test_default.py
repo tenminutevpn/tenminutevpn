@@ -12,8 +12,9 @@ def test_wireguard(host):
     assert host.package("wireguard").is_installed
 
 def test_wireguard_configuration(host):
-    assert host.file("/etc/wireguard/wg0.conf").exists
-    assert host.file("/etc/wireguard/wg0.conf").is_file
+    with host.sudo():
+        assert host.file("/etc/wireguard/wg0.conf").exists
+        assert host.file("/etc/wireguard/wg0.conf").is_file
 
-    assert host.file("/root/.wireguard/client.conf").exists
-    assert host.file("/root/.wireguard/client.conf").is_file
+        assert host.file("/root/.wireguard/client.conf").exists
+        assert host.file("/root/.wireguard/client.conf").is_file
