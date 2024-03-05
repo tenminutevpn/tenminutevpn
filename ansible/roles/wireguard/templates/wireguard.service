@@ -1,0 +1,12 @@
+[Unit]
+Description=Wireguard Server Config Generator
+After=network.target
+
+[Service]
+ExecStart=/bin/bash /usr/local/bin/wireguard-keygen.sh
+ExecStartPost=/bin/bash /usr/local/bin/wireguard-init.sh
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

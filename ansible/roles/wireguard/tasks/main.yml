@@ -1,1 +1,39 @@
 ---
+- name: Update system
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install WireGuard
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+
+- name: Create WireGuard directory
+  ansible.builtin.file:
+    path: /etc/wireguard
+    state: directory
+    mode: 0755
+
+- name: Create WireGuard keygen script
+  ansible.builtin.template:
+    src: wireguard-keygen.sh
+    dest: /usr/local/bin/wireguard-keygen.sh
+    mode: 0744
+
+- name: Create WireGuard server init script
+  ansible.builtin.template:
+    src: wireguard-init.sh
+    dest: /usr/local/bin/wireguard-init.sh
+    mode: 0744
+
+- name: Create systemd service for WireGuard configuration on boot
+  ansible.builtin.template:
+    src: wireguard.service
+    dest: /etc/systemd/system/wireguard.service
+    mode: 0644
+
+- name: Enable systemd service
+  ansible.builtin.systemd:
+    name: wireguard
+    enabled: true
+    state: restarted
