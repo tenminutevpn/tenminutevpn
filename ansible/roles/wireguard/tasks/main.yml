@@ -6,7 +6,9 @@
 
 - name: Install WireGuard
   ansible.builtin.apt:
-    name: wireguard
+    name:
+      - net-tools
+      - wireguard
     state: present
 
 - name: Create WireGuard directory

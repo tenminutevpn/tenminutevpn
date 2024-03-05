@@ -7,14 +7,17 @@ sysctl --system
 # Configure iptables
 iptables -A INPUT -p udp --dport 51820 -j ACCEPT
 
+# Find default interface
+iface=$(ip route | grep default | awk '{print $5}')
+
 # Configure WireGuard
 cat <<EOF > {{ wireguard_server_config }}
 [Interface]
 PrivateKey = $(cat {{ wireguard_server_privatekey }})
 Address = 10.0.0.1/24
 ListenPort = 51820
-PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o ${iface} -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o ${iface} -j MASQUERADE
 
 [Peer]
 PublicKey = $(cat {{ wireguard_client_publickey }})
