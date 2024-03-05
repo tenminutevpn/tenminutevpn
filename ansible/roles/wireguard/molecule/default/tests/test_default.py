@@ -16,8 +16,8 @@ def test_wireguard_scripts(host):
 
 def test_wireguard_service(host):
     """Check if WireGuard service is enabled and running."""
-    assert host.service("wg-quick@wg0").is_enabled
-    assert not host.service("wg-quick@wg0").is_running
+    assert host.service("wireguard").is_enabled
+    assert not host.service("wireguard").is_running
 
 
 def test_wireguard_configuration(host):
