@@ -1,0 +1,8 @@
+---
+wireguard_server_privatekey: /etc/wireguard/privatekey
+wireguard_server_publickey: /etc/wireguard/publickey
+wireguard_server_config: /etc/wireguard/wg0.conf
+
+wireguard_client_privatekey: /root/.wireguard/privatekey
+wireguard_client_publickey: /root/.wireguard/publickey
+wireguard_client_config: /root/.wireguard/client.conf

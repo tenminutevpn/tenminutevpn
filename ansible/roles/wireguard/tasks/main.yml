@@ -1,0 +1,44 @@
+---
+- name: Update APT cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install WireGuard
+  ansible.builtin.apt:
+    name:
+      - net-tools
+      - wireguard
+    state: present
+
+- name: Create WireGuard directory
+  ansible.builtin.file:
+    path: /etc/wireguard
+    state: directory
+    mode: "0700"
+
+- name: Create WireGuard client directory
+  ansible.builtin.file:
+    path: /root/.wireguard
+    state: directory
+    mode: "0700"
+
+- name: Create WireGuard keygen script
+  ansible.builtin.template:
+    src: wireguard-keygen.sh
+    dest: /usr/local/bin/wireguard-keygen.sh
+    mode: "0744"
+
+- name: Create WireGuard server init script
+  ansible.builtin.template:
+    src: wireguard-init.sh
+    dest: /usr/local/bin/wireguard-init.sh
+    mode: "0744"
+
+- name: Create WireGuard cloud-init configuration
+  ansible.builtin.template:
+    src: 99_wireguard.cfg
+    dest: /etc/cloud/cloud.cfg.d/99_wireguard.cfg
+    mode: "0644"
+    owner: root
+    group: root
