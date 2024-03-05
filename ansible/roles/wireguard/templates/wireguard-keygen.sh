@@ -1,6 +1,10 @@
 #!/bin/bash
-if [[ -f "{{ wireguard_privatekey }}" ]]; then
-    exit 0
+if [[ ! -f "{{ wireguard_server_privatekey }}" ]]; then
+    wg genkey | tee "{{ wireguard_server_privatekey }}" | wg pubkey | tee "{{ wireguard_server_publickey }}"
+    chmod 600 "{{ wireguard_server_privatekey }}"
 fi
 
-wg genkey | tee "{{ wireguard_privatekey }}" | wg pubkey | tee "{{ wireguard_publickey }}"
+if [[ ! -f "{{ wireguard_client_privatekey }}" ]]; then
+    wg genkey | tee "{{ wireguard_client_privatekey }}" | wg pubkey | tee "{{ wireguard_client_publickey }}"
+    chmod 600 "{{ wireguard_client_privatekey }}"
+fi

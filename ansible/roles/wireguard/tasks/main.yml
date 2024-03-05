@@ -12,7 +12,19 @@
   ansible.builtin.file:
     path: /etc/wireguard
     state: directory
-    mode: 0755
+    mode: 0700
+
+- name: Create WireGuard client directory
+  ansible.builtin.file:
+    path: /root/.wireguard
+    state: directory
+    mode: 0700
+
+- name: Get server's public IP
+  ansible.builtin.uri:
+    url: https://api.ipify.org
+    return_content: yes
+  register: wireguard_server_ipv4
 
 - name: Create WireGuard keygen script
   ansible.builtin.template:
