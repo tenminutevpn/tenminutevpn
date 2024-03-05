@@ -28,6 +28,8 @@ EOF
 wg-quick up wg0
 systemctl enable wg-quick@wg0
 
+ipv4=$(curl https://api.ipify.org)
+
 # Configure WireGuard client
 cat <<EOF > {{ wireguard_client_config }}
 [Interface]
@@ -36,6 +38,6 @@ Address = 10.0.0.2/32
 
 [Peer]
 PublicKey = $(cat {{ wireguard_server_publickey }})
-Endpoint = {{ wireguard_server_ipv4.content }}:51820
+Endpoint = $ipv4:51820
 AllowedIps = 0.0.0.0/0
 EOF

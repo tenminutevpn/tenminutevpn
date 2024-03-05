@@ -23,12 +23,6 @@
     state: directory
     mode: "0700"
 
-- name: Get server's public IP
-  ansible.builtin.uri:
-    url: https://api.ipify.org
-    return_content: true
-  register: wireguard_server_ipv4
-
 - name: Create WireGuard keygen script
   ansible.builtin.template:
     src: wireguard-keygen.sh
