@@ -24,8 +24,3 @@ def test_wireguard_configuration(host):
 def test_wireguard_port(host):
     with host.sudo():
         assert host.socket("udp://51820").is_listening
-
-
-def test_squid_port(host):
-    with host.sudo():
-        assert host.socket("tcp://3128").is_listening

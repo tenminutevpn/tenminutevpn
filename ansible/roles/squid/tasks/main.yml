@@ -23,11 +23,3 @@
     mode: "0744"
     owner: root
     group: root
-
-- name: Create Squid cloud-init configuration
-  ansible.builtin.template:
-    src: 98_squid.cfg
-    dest: /etc/cloud/cloud.cfg.d/98_squid.cfg
-    mode: "0644"
-    owner: root
-    group: root
