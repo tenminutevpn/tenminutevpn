@@ -1,0 +1,25 @@
+---
+- name: Update APT cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install Squid
+  ansible.builtin.apt:
+    name:
+      - squid
+    state: present
+
+- name: Stop Squid
+  ansible.builtin.service:
+    name: squid
+    state: stopped
+    enabled: false
+
+- name: Create Squid init script
+  ansible.builtin.template:
+    src: squid-init.sh
+    dest: /usr/local/bin/squid-init.sh
+    mode: "0744"
+    owner: root
+    group: root

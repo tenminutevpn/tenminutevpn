@@ -49,4 +49,4 @@ build: clean lint install .cache/packer/variables.pkrvars.hcl  ## Build the imag
 
 .PHONY: test
 test:  ## Test the image
-	cd $(MAKEFILE_DIR)/ansible/roles/tenminutevpn/ && molecule test
+	cd $(MAKEFILE_DIR)/ansible/roles/acceptance_testing/ && molecule test
