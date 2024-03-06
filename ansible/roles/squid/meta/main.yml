@@ -1,17 +1,19 @@
 galaxy_info:
+  namespace: tenminutevpn
+  role_name: squid
+
   author: Andrey Gubarev <andrey@andreygubarev.com> (andreygubarev.com)
   description: HTTP proxy
   company: tenminutevpn
 
   license: MIT
 
-  min_ansible_version: '9.0.0'
+  min_ansible_version: "9.0.0"
 
-  platforms: []
-  # platforms:
-  # - name: Ubuntu
-  #   versions:
-  #   - focal
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
 
   galaxy_tags: []
 
