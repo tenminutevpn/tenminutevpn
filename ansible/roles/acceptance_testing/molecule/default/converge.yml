@@ -6,7 +6,4 @@
     http_proxy: "{{ lookup('ansible.builtin.env', 'http_proxy') | default(omit) }}"
     https_proxy: "{{ lookup('ansible.builtin.env', 'https_proxy') | default(omit) }}"
 
-  tasks:
-    - name: "Include tenminutevpn"
-      ansible.builtin.include_role:
-        name: "tenminutevpn"
+  tasks: []
