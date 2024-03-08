@@ -4,6 +4,17 @@
     update_cache: true
     cache_valid_time: 3600
 
+- name: Sysctl configuration
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: true
+    sysctl_file: /etc/sysctl.d/99_wireguard.conf
+    reload: true
+  with_items:
+    - { name: "net.ipv4.ip_forward", value: 1 }
+
 - name: Install WireGuard
   ansible.builtin.apt:
     name:
