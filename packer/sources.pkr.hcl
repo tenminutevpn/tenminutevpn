@@ -4,9 +4,11 @@ source "qemu" "image" {
   iso_checksum = var.image_checksum
   format       = var.image_format
 
+
   qemu_binary  = "qemu-system-${var.image_arch}"
   machine_type = var.qemu_machine
   accelerator  = var.qemu_accelerator
+  firmware = "${path.root}/efi/edk2-${var.image_arch}.fd"
   headless     = var.qemu_headless
   net_device   = var.qemu_network
   memory       = var.vm_memory
