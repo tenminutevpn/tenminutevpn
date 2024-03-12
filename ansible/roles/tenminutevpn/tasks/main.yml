@@ -7,7 +7,7 @@
 
 - name: Download tenminutevpn package
   ansible.builtin.get_url:
-    url: "{{ tenminutevpn_package }}"
+    url: "{{ tenminutevpn_package_url }}"
     checksum: "{{ tenminutevpn_package_checksum }}"
     dest: /tmp/tenminutevpn.deb
     mode: "0644"
