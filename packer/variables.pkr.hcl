@@ -31,7 +31,7 @@ variable "image_cache" {
 
 ### QEMU #####################################################################
 variable "qemu_binary" {
-    type = string
+  type = string
 }
 
 variable "qemu_accelerator" {

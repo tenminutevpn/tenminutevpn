@@ -7,7 +7,7 @@ source "qemu" "image" {
   qemu_binary  = var.qemu_binary
   machine_type = var.qemu_machine
   accelerator  = var.qemu_accelerator
-  firmware = "${path.root}/efi/edk2-${var.image_arch}.fd"
+  firmware     = "${path.root}/efi/edk2-${var.image_arch}.fd"
   headless     = var.qemu_headless
   net_device   = var.qemu_network
   memory       = var.vm_memory
