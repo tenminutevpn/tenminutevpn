@@ -4,6 +4,6 @@
   gather_facts: true
   become: true
   roles:
-    - role: tenminutevpn
     - role: squid
     - role: wireguard
+    - role: tenminutevpn

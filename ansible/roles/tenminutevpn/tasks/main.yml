@@ -18,3 +18,11 @@
     deb: /tmp/tenminutevpn.deb
     state: present
     update_cache: false
+
+- name: Create cloud-init configuration
+  ansible.builtin.template:
+    src: 99_tenminutevpn.cfg
+    dest: /etc/cloud/cloud.cfg.d/99_tenminutevpn.cfg
+    mode: "0644"
+    owner: root
+    group: root
