@@ -37,8 +37,12 @@ lint:  ## Lint the code
 install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/packer/
 
+.PHONY: prerequisites
+prerequisites:  ## Install the prerequisites
+	if [ -f /dev/kvm ]; then sudo chmod 666 /dev/kvm; fi
+
 .PHONY: build
-build: clean lint install .cache/packer/variables.pkrvars.hcl  ## Build the image
+build: clean lint prerequisites install .cache/packer/variables.pkrvars.hcl  ## Build the image
 	packer validate \
 		-var-file=$(MAKEFILE_DIR)/packer/variables.$(shell uname -m).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
