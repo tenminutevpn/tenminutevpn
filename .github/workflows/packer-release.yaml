@@ -125,6 +125,7 @@ jobs:
 
       - name: Verify
         run: |
+          sudo chmod a+rw /dev/kvm
           direnv allow
           direnv exec . make test
 
