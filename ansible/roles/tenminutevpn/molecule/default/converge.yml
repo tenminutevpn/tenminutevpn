@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+
+  environment:
+    http_proxy: "{{ lookup('ansible.builtin.env', 'http_proxy') | default(omit) }}"
+    https_proxy: "{{ lookup('ansible.builtin.env', 'https_proxy') | default(omit) }}"
+
+  become: true
+  tasks:
+    - name: "Include tenminutevpn"
+      ansible.builtin.include_role:
+        name: "tenminutevpn"
