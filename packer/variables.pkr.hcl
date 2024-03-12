@@ -1,10 +1,11 @@
 ### Image ####################################################################
 variable "image_name" {
-  type = string
+  type    = string
+  default = "tenminutevpn"
 }
 
 variable "image_arch" {
-  type    = string
+  type = string
 }
 
 variable "image_url" {

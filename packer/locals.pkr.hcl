@@ -1,3 +1,3 @@
 local "name" {
-  expression = "tenminutevpn-${var.image_arch}.${var.image_format}"
+  expression = "${var.image_name}-${var.image_arch}.${var.image_format}"
 }
