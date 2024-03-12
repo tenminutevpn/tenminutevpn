@@ -15,6 +15,7 @@ help:  ## Show this help
 
 .cache/packer/variables.pkrvars.hcl: .cache/packer/ssh/id_rsa
 	@rm -f $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
+	@echo "image_arch = \"$(ARCH)\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "image_output = \"${MAKEFILE_DIR}/.cache/packer/image/\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "image_cache = \"${MAKEFILE_DIR}/.cache/qemu/\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "ssh_private_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
