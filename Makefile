@@ -40,9 +40,11 @@ install:  ## Install the dependencies
 .PHONY: build
 build: clean lint install .cache/packer/variables.pkrvars.hcl  ## Build the image
 	packer validate \
+		-var-file=$(MAKEFILE_DIR)/packer/variables.$(shell uname -m).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
 		$(MAKEFILE_DIR)/packer/
 	packer build \
+		-var-file=$(MAKEFILE_DIR)/packer/variables.$(shell uname -m).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
 		$(MAKEFILE_DIR)/packer/
 	@sed -i 's/\t/  /g' $(MAKEFILE_DIR)/.cache/packer/image/SHA512SUMS
