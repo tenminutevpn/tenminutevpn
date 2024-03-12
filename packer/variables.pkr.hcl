@@ -45,6 +45,10 @@ variable "qemu_network" {
   default = "virtio-net"
 }
 
+variable "qemu_machine" {
+  type = string
+}
+
 ### VM #######################################################################
 
 variable "vm_cpus" {
