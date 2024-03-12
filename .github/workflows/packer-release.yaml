@@ -69,6 +69,7 @@ jobs:
 
       - name: Build
         run: |
+          chmod a+rw /dev/kvm
           direnv allow
           direnv exec . make build
 
