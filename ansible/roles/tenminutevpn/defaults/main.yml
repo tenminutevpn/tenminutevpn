@@ -1,1 +1,6 @@
 ---
+tenminutevpn_version: "0.1.2"
+tenminutevpn_package: >
+  https://github.com/tenminutevpn/bash-tenminutevpn/releases/download/v{{ tenminutevpn_version }}/tenminutevpn-{{ tenminutevpn_version }}-1.deb
+tenminutevpn_package_checksum: >
+  sha256:https://github.com/tenminutevpn/bash-tenminutevpn/releases/download/v{{ tenminutevpn_version }}/SHA256SUMS

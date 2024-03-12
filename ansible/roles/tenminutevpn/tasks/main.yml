@@ -4,3 +4,17 @@
     name: tenminutevpn
     shell: /bin/bash
     state: present
+
+- name: Download tenminutevpn package
+  ansible.builtin.get_url:
+    url: "{{ tenminutevpn_package }}"
+    checksum: "{{ tenminutevpn_package_checksum }}"
+    dest: /tmp/tenminutevpn.deb
+    mode: "0644"
+    owner: root
+
+- name: Install tenminutevpn package
+  ansible.builtin.apt:
+    deb: /tmp/tenminutevpn.deb
+    state: present
+    update_cache: false
