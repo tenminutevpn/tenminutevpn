@@ -4,7 +4,6 @@ source "qemu" "image" {
   iso_checksum = var.image_checksum
   format       = var.image_format
 
-
   qemu_binary  = "qemu-system-${var.image_arch}"
   machine_type = var.qemu_machine
   accelerator  = var.qemu_accelerator
@@ -13,6 +12,7 @@ source "qemu" "image" {
   net_device   = var.qemu_network
   memory       = var.vm_memory
   cpus         = var.vm_cpus
+  cpu_model    = var.vm_cpu_model
 
   cd_content = {
     "meta-data" = templatefile("${path.root}/cloud-init/meta-data", {

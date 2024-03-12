@@ -56,6 +56,11 @@ variable "vm_cpus" {
   default = "2"
 }
 
+variable "vm_cpu_model" {
+  type    = string
+  default = "host"
+}
+
 variable "vm_memory" {
   type    = string
   default = "2048"
