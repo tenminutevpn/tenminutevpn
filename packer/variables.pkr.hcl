@@ -30,6 +30,10 @@ variable "image_cache" {
 }
 
 ### QEMU #####################################################################
+variable "qemu_binary" {
+    type = string
+}
+
 variable "qemu_accelerator" {
   type    = string
   default = "tcg"

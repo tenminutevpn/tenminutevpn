@@ -37,14 +37,21 @@ lint:  ## Lint the code
 install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/packer/
 
+ARCH := $(shell uname -m)
+ifeq ($(ARCH),x86_64)
+    ARCH := amd64
+else ifeq ($(ARCH),aarch64)
+    ARCH := arm64
+endif
+
 .PHONY: build
 build: clean lint install .cache/packer/variables.pkrvars.hcl  ## Build the image
 	packer validate \
-		-var-file=$(MAKEFILE_DIR)/packer/variables.$(shell uname -m).pkrvars.hcl \
+		-var-file=$(MAKEFILE_DIR)/packer/variables.$(ARCH).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
 		$(MAKEFILE_DIR)/packer/
 	packer build \
-		-var-file=$(MAKEFILE_DIR)/packer/variables.$(shell uname -m).pkrvars.hcl \
+		-var-file=$(MAKEFILE_DIR)/packer/variables.$(ARCH).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
 		$(MAKEFILE_DIR)/packer/
 	@sed -i 's/\t/  /g' $(MAKEFILE_DIR)/.cache/packer/image/SHA512SUMS
