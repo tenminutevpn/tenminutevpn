@@ -54,5 +54,5 @@ build: clean lint prerequisites install .cache/packer/variables.pkrvars.hcl  ## 
 	@sed -i 's/\t/  /g' $(MAKEFILE_DIR)/.cache/packer/image/SHA512SUMS
 
 .PHONY: test
-test:  ## Test the image
+test: prerequisites  ## Test the image
 	cd $(MAKEFILE_DIR)/ansible/roles/acceptance_testing/ && molecule test
