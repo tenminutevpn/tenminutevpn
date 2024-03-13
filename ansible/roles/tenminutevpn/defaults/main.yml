@@ -4,6 +4,6 @@ tenminutevpn_revision: "1"
 tenminutevpn_package: tenminutevpn-{{ tenminutevpn_version }}-{{ tenminutevpn_revision }}.deb
 
 tenminutevpn_package_url: >
-  https://github.com/tenminutevpn/bash-tenminutevpn/releases/download/v{{ tenminutevpn_version }}/{{ tenminutevpn_package }}
+  https://github.com/tenminutevpn/tenminutevpn-manager/releases/download/v{{ tenminutevpn_version }}/{{ tenminutevpn_package }}
 tenminutevpn_package_checksum: >
-  sha256:https://github.com/tenminutevpn/bash-tenminutevpn/releases/download/v{{ tenminutevpn_version }}/SHA256SUMS
+  sha256:https://github.com/tenminutevpn/tenminutevpn-manager/releases/download/v{{ tenminutevpn_version }}/SHA256SUMS
