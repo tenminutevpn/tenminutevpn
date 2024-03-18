@@ -1,15 +1,15 @@
 ---
 - name: Set amd64 architecture
   ansible.builtin.set_fact:
-    tenminutevpn_arch: amd64
+    tenminutevpn_manager_arch: amd64
   when: ansible_architecture == "x86_64"
 
 - name: Set arm64 architecture
   ansible.builtin.set_fact:
-    tenminutevpn_arch: arm64
+    tenminutevpn_manager_arch: arm64
   when: ansible_architecture == "aarch64"
 
 - name: Assert architecture
   ansible.builtin.assert:
     that:
-      - tenminutevpn_arch in ['amd64', 'arm64']
+      - tenminutevpn_manager_arch in ['amd64', 'arm64']

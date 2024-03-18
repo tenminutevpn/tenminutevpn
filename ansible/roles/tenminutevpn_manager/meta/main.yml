@@ -1,6 +1,6 @@
 galaxy_info:
   namespace: tenminutevpn
-  role_name: tenminutevpn
+  role_name: tenminutevpn_manager
 
   author: Andrey Gubarev <andrey@andreygubarev.com> (andreygubarev.com)
   description: TenMinuteVPN

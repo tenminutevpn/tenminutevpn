@@ -6,4 +6,4 @@
   roles:
     - role: squid
     - role: wireguard
-    - role: tenminutevpn
+    - role: tenminutevpn_manager

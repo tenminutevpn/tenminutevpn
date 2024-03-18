@@ -10,4 +10,4 @@
   tasks:
     - name: "Include tenminutevpn"
       ansible.builtin.include_role:
-        name: "tenminutevpn"
+        name: "tenminutevpn_manager"

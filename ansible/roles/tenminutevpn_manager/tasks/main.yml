@@ -13,15 +13,15 @@
 
 - name: Download tenminutevpn package
   ansible.builtin.get_url:
-    url: "{{ tenminutevpn_package_url }}"
-    checksum: "{{ tenminutevpn_release_checksum }}"
-    dest: "/opt/{{ tenminutevpn_package }}"
+    url: "{{ tenminutevpn_manager_package_url }}"
+    checksum: "{{ tenminutevpn_manager_release_checksum }}"
+    dest: "/opt/{{ tenminutevpn_manager_package }}"
     mode: "0644"
     owner: root
 
 - name: Install tenminutevpn-manager package
   ansible.builtin.apt:
-    deb: "/opt/{{ tenminutevpn_package }}"
+    deb: "/opt/{{ tenminutevpn_manager_package }}"
     state: present
     update_cache: false
 

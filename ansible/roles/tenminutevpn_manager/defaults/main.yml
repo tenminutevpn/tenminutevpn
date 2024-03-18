@@ -1,0 +1,11 @@
+---
+tenminutevpn_manager_version: "0.2.2"
+tenminutevpn_manager_revision: "4"
+tenminutevpn_manager_arch:
+
+tenminutevpn_manager_repo: "https://github.com/tenminutevpn/tenminutevpn-manager"
+tenminutevpn_manager_release:
+tenminutevpn_manager_release_checksum: "sha256:{{ tenminutevpn_manager_release }}/SHA256SUMS"
+
+tenminutevpn_manager_package: "tenminutevpn-manager-{{ tenminutevpn_manager_version }}-{{ tenminutevpn_manager_revision }}-{{ tenminutevpn_manager_arch }}.deb"
+tenminutevpn_manager_package_url: "{{ tenminutevpn_manager_release }}/{{ tenminutevpn_manager_package }}"
