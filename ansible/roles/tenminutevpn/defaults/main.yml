@@ -1,6 +1,6 @@
 ---
-tenminutevpn_version: "0.2.1"
-tenminutevpn_revision: "2"
+tenminutevpn_version: "0.2.2"
+tenminutevpn_revision: "4"
 tenminutevpn_arch:
 
 tenminutevpn_repo: "https://github.com/tenminutevpn/tenminutevpn-manager"
