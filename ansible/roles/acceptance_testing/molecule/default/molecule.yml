@@ -5,8 +5,9 @@ driver:
   name: molecule-qemu
 platforms:
   - name: tenminutevpn
-    image_url: "${MOLECULE_IMAGE_URL}"
-    image_checksum: "${MOLECULE_IMAGE_CHECKSUM}"
+    image_url: "${PACKER_IMAGE_URL}"
+    image_checksum: "${PACKER_IMAGE_CHECKSUM}"
+    image_arch: "${PACKER_IMAGE_ARCH}"
     image_format: raw
 provisioner:
   name: ansible

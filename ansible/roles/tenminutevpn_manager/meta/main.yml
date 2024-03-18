@@ -1,19 +1,20 @@
 galaxy_info:
   namespace: tenminutevpn
-  role_name: users
+  role_name: tenminutevpn_manager
 
   author: Andrey Gubarev <andrey@andreygubarev.com> (andreygubarev.com)
-  description: Users for tenminutevpn
+  description: TenMinuteVPN
   company: tenminutevpn
 
   license: MIT
 
   min_ansible_version: "9.0.0"
 
-  platforms:
-    - name: Debian
-      versions:
-        - bookworm
+  platforms: []
+  # platforms:
+  # - name: Ubuntu
+  #   versions:
+  #   - focal
 
   galaxy_tags: []
 

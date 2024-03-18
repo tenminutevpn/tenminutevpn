@@ -15,6 +15,7 @@ help:  ## Show this help
 
 .cache/packer/variables.pkrvars.hcl: .cache/packer/ssh/id_rsa
 	@rm -f $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
+	@echo "image_arch = \"$(ARCH)\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "image_output = \"${MAKEFILE_DIR}/.cache/packer/image/\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "image_cache = \"${MAKEFILE_DIR}/.cache/qemu/\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
 	@echo "ssh_private_key = \"$(MAKEFILE_DIR)/.cache/packer/ssh/id_rsa\"" >> $(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl
@@ -37,12 +38,21 @@ lint:  ## Lint the code
 install:  ## Install the dependencies
 	packer init $(MAKEFILE_DIR)/packer/
 
+ARCH := $(shell uname -m)
+ifeq ($(ARCH),x86_64)
+    ARCH := amd64
+else ifeq ($(ARCH),aarch64)
+    ARCH := arm64
+endif
+
 .PHONY: build
 build: clean lint install .cache/packer/variables.pkrvars.hcl  ## Build the image
 	packer validate \
+		-var-file=$(MAKEFILE_DIR)/packer/variables.$(ARCH).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
 		$(MAKEFILE_DIR)/packer/
 	packer build \
+		-var-file=$(MAKEFILE_DIR)/packer/variables.$(ARCH).pkrvars.hcl \
 		-var-file=$(MAKEFILE_DIR)/.cache/packer/variables.pkrvars.hcl \
 		$(MAKEFILE_DIR)/packer/
 	@sed -i 's/\t/  /g' $(MAKEFILE_DIR)/.cache/packer/image/SHA512SUMS

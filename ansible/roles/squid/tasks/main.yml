@@ -15,11 +15,3 @@
     name: squid
     state: stopped
     enabled: false
-
-- name: Create Squid init script
-  ansible.builtin.template:
-    src: squid-init.sh
-    dest: /usr/local/bin/squid-init.sh
-    mode: "0744"
-    owner: root
-    group: root

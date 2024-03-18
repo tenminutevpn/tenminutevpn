@@ -58,16 +58,17 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .cache/venv
-          key: ${{ runner.os }}-venv-${{ hashFiles('**/packer/Pipfile.lock') }}
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/Pipfile.lock') }}
 
       - name: Cache QEMU
         uses: actions/cache@v3
         with:
           path: .cache/qemu
-          key: ${{ runner.os }}-qemu-${{ hashFiles('**/packer/variables/*.pkrvars.hcl') }}
+          key: ${{ runner.os }}-qemu-${{ hashFiles('**/packer/*.pkrvars.hcl') }}
 
       - name: Build
         run: |
+          sudo chmod a+rw /dev/kvm
           direnv allow
           direnv exec . make build
 
@@ -124,6 +125,7 @@ jobs:
 
       - name: Verify
         run: |
+          sudo chmod a+rw /dev/kvm
           direnv allow
           direnv exec . make test
 

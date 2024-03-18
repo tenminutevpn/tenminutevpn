@@ -1,5 +1,10 @@
 ### Image ####################################################################
 variable "image_name" {
+  type    = string
+  default = "tenminutevpn"
+}
+
+variable "image_arch" {
   type = string
 }
 
@@ -25,6 +30,10 @@ variable "image_cache" {
 }
 
 ### QEMU #####################################################################
+variable "qemu_binary" {
+  type = string
+}
+
 variable "qemu_accelerator" {
   type    = string
   default = "tcg"
@@ -40,11 +49,20 @@ variable "qemu_network" {
   default = "virtio-net"
 }
 
+variable "qemu_machine" {
+  type = string
+}
+
 ### VM #######################################################################
 
 variable "vm_cpus" {
   type    = string
   default = "2"
+}
+
+variable "vm_cpu_model" {
+  type    = string
+  default = "host"
 }
 
 variable "vm_memory" {
