@@ -1,0 +1,10 @@
+---
+- name: Set release with default revision
+  ansible.builtin.set_fact:
+    tenminutevpn_release: "{{ tenminutevpn_repo }}/releases/download/v{{ tenminutevpn_version }}"
+  when: tenminutevpn_revision == "1"
+
+- name: Set release with revision
+  ansible.builtin.set_fact:
+    tenminutevpn_release: "{{ tenminutevpn_repo }}/releases/download/v{{ tenminutevpn_version }}-{{ tenminutevpn_revision }}"
+  when: tenminutevpn_revision != "1"

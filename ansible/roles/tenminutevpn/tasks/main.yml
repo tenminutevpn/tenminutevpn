@@ -5,19 +5,32 @@
     shell: /bin/bash
     state: present
 
+- name: Include release
+  ansible.builtin.include_tasks: 01-release.yaml
+
+- name: Include architecture
+  ansible.builtin.include_tasks: 02-arch.yaml
+
 - name: Download tenminutevpn package
   ansible.builtin.get_url:
     url: "{{ tenminutevpn_package_url }}"
-    checksum: "{{ tenminutevpn_package_checksum }}"
-    dest: /tmp/tenminutevpn.deb
+    checksum: "{{ tenminutevpn_release_checksum }}"
+    dest: "/opt/{{ tenminutevpn_package }}"
     mode: "0644"
     owner: root
 
-- name: Install tenminutevpn package
+- name: Install tenminutevpn-manager package
   ansible.builtin.apt:
-    deb: /tmp/tenminutevpn.deb
+    deb: "/opt/{{ tenminutevpn_package }}"
     state: present
     update_cache: false
+
+- name: Set permissions on tenminutevpn-manager
+  ansible.builtin.file:
+    path: /usr/bin/tenminutevpn-manager
+    mode: "0755"
+    owner: root
+    group: root
 
 - name: Create cloud-init configuration
   ansible.builtin.template:
