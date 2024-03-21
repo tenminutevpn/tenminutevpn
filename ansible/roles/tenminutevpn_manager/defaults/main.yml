@@ -1,5 +1,5 @@
 ---
-tenminutevpn_manager_version: "0.2.3"
+tenminutevpn_manager_version: "0.3.0"
 tenminutevpn_manager_revision: "1"
 tenminutevpn_manager_arch:
 
@@ -9,3 +9,5 @@ tenminutevpn_manager_release_checksum: "sha256:{{ tenminutevpn_manager_release }
 
 tenminutevpn_manager_package: "tenminutevpn-manager-{{ tenminutevpn_manager_version }}-{{ tenminutevpn_manager_revision }}-{{ tenminutevpn_manager_arch }}.deb"
 tenminutevpn_manager_package_url: "{{ tenminutevpn_manager_release }}/{{ tenminutevpn_manager_package }}"
+
+tenminutevpn_manager_configure: true

@@ -32,6 +32,15 @@
     owner: root
     group: root
 
+- name: Set default configuration
+  when: tenminutevpn_manager_configure
+  ansible.builtin.copy:
+    src: tenminutevpn.yaml
+    dest: /etc/tenminutevpn/tenminutevpn.yaml
+    mode: "0644"
+    owner: root
+    group: root
+
 - name: Create cloud-init configuration
   ansible.builtin.template:
     src: 99_tenminutevpn.cfg
