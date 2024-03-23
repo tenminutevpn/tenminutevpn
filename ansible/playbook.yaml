@@ -4,6 +4,7 @@
   gather_facts: true
   become: true
   roles:
+    - role: dnsmasq
     - role: squid
     - role: wireguard
     - role: tenminutevpn_manager
