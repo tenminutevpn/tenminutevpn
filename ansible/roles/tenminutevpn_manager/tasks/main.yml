@@ -35,8 +35,8 @@
 - name: Set default configuration
   when: tenminutevpn_manager_configure
   ansible.builtin.copy:
-    src: tenminutevpn.yaml
-    dest: /etc/tenminutevpn/tenminutevpn.yaml
+    src: tenminutevpn
+    dest: /etc/tenminutevpn
     mode: "0644"
     owner: root
     group: root
