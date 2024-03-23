@@ -41,6 +41,14 @@
     owner: root
     group: root
 
+- name: Create config directory
+  ansible.builtin.file:
+    path: /etc/tenminutevpn
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
 - name: Create cloud-init configuration
   ansible.builtin.template:
     src: 99_tenminutevpn.cfg
