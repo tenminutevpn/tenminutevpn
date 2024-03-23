@@ -1,10 +1,13 @@
 """Role testing files using testinfra."""
 
 
-def test_hosts_file(host):
-    """Validate /etc/hosts file."""
-    f = host.file("/etc/hosts")
+def test_service(host):
+    service = host.service("squid")
+    # FIXME: https://github.com/pytest-dev/pytest-testinfra/issues/757
+    # assert service.exists
+    assert not service.is_running
+    assert not service.is_enabled
 
-    assert f.exists
-    assert f.user == "root"
-    assert f.group == "root"
+def test_config(host):
+    config = host.file("/etc/dnsmasq.conf")
+    assert config.exists
