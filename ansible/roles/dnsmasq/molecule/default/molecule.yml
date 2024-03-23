@@ -1,0 +1,14 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: molecule-qemu
+platforms:
+  - name: debian-12
+    image_arch: ${MOLECULE_PLATFORM_IMAGE_ARCH}
+    image_url: ${MOLECULE_PLATFORM_IMAGE_URL}
+    image_checksum: ${MOLECULE_PLATFORM_IMAGE_CHECKSUM}
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra

@@ -1,0 +1,20 @@
+galaxy_info:
+  namespace: tenminutevpn
+  role_name: dnsmasq
+
+  author: Andrey Gubarev <andrey@andreygubarev.com> (andreygubarev.com)
+  description: dnsmasq server
+  company: tenminutevpn
+
+  license: MIT
+
+  min_ansible_version: "9.0.0"
+
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+
+  galaxy_tags: []
+
+dependencies: []

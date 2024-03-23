@@ -1,0 +1,17 @@
+---
+- name: Update APT cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install dnsmasq
+  ansible.builtin.apt:
+    name:
+      - dnsmasq
+    state: present
+
+- name: Stop dnsmasq
+  ansible.builtin.service:
+    name: dnsmasq
+    state: stopped
+    enabled: false

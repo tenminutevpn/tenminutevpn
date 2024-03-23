@@ -1,0 +1,9 @@
+---
+kind: dnsmasq/v1
+metadata:
+  name: dnsmasq-1
+spec:
+  interface: wg0
+  server:
+    - 1.1.1.1
+    - 0.0.0.0
