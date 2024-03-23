@@ -36,7 +36,7 @@
   when: tenminutevpn_manager_configure
   ansible.builtin.copy:
     src: tenminutevpn
-    dest: /etc/tenminutevpn
+    dest: /etc
     mode: "0644"
     owner: root
     group: root
